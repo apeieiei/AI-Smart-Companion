@@ -1,8 +1,12 @@
 import streamlit as st
 from openai import OpenAI
+from dotenv import load_dotenv
 import os
 import datetime
 import json
+
+# 加载 .env 文件中的环境变量
+load_dotenv()
 
 st.set_page_config(
     page_title="AI智能伴侣",
@@ -112,7 +116,12 @@ for message in st.session_state.messages:
     st.chat_message(message["role"]).write(message["content"])
 
 # 创建与AI大模型交互的客户端对象
-client = OpenAI(api_key=os.environ.get('DEEPSEEK_API_KEY'), base_url="https://api.deepseek.com")
+api_key = os.environ.get('DEEPSEEK_API_KEY')
+if not api_key:
+    st.error("⚠️ 未设置 DEEPSEEK_API_KEY 环境变量。请在项目目录下的 .env 文件中添加：DEEPSEEK_API_KEY=sk-your-key")
+    st.stop()
+
+client = OpenAI(api_key=api_key, base_url="https://api.deepseek.com")
 
 #侧边栏
 with st.sidebar:
