@@ -18,7 +18,7 @@ st.set_page_config(
 
 #生成会话标识
 def generate_session_name():
-    return datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    return datetime.datetime.now().strftime("%Y-%m-%d %H-%M-%S")
 
 def save_session():
     if st.session_state.current_session:
