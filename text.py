@@ -42,6 +42,7 @@ def load_sessions():
             with open(file_path, "r", encoding="utf-8") as f:
                 session_data = json.load(f)
                 session_list.append(session_data)
+    session_list.sort(reverse=True)
     return session_list
 
 #加载【单个会话】（需要传入session_name，单数session）
@@ -145,6 +146,9 @@ with st.sidebar:
             if st.button("X", width="stretch", key=f"delete_{session_name}"):
                 delete_session(session_name)
                 st.rerun()
+
+    #分割线
+    st.divider()
 
     st.subheader("伴侣信息")
     nick_name = st.text_input("昵称", placeholder="请输入昵称", value=st.session_state.nick_name)
